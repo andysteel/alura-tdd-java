@@ -11,12 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class BonusServiceTest {
 
     @Test
-    void bonusDeveSerZeroParaSalarioAcimaDe1000() {
+    void bonusDeveLancarExceptionParaSalarioAcimaDe1000() {
         var service = new BonusService();
         var funcionario = new Funcionario("Anderson", LocalDate.now(), new BigDecimal("25000"));
-        var bonus = service.calcularBonus(funcionario);
 
-        assertEquals(new BigDecimal("0.00"), bonus);
+//        assertThrows(IllegalArgumentException.class, () -> service.calcularBonus(funcionario));
+
+        try {
+            service.calcularBonus(funcionario);
+            fail("Não lancou exception");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Funcionario com salario maior que 10.000 não pode receber Bonus !", ex.getMessage());
+        }
     }
 
     @Test
