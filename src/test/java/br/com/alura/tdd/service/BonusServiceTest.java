@@ -1,6 +1,7 @@
 package br.com.alura.tdd.service;
 
 import br.com.alura.tdd.modelo.Funcionario;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,9 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BonusServiceTest {
 
+    private BonusService service;
+
+    @BeforeEach
+    public void init() {
+        this.service = new BonusService();
+    }
+
     @Test
     void bonusDeveLancarExceptionParaSalarioAcimaDe1000() {
-        var service = new BonusService();
+
         var funcionario = new Funcionario("Anderson", LocalDate.now(), new BigDecimal("25000"));
 
 //        assertThrows(IllegalArgumentException.class, () -> service.calcularBonus(funcionario));
@@ -27,7 +35,7 @@ class BonusServiceTest {
 
     @Test
     void bonusDeveSer10PorCentoDoSalario() {
-        var service = new BonusService();
+
         var funcionario = new Funcionario("Anderson", LocalDate.now(), new BigDecimal("2500"));
         var bonus = service.calcularBonus(funcionario);
 
@@ -36,7 +44,7 @@ class BonusServiceTest {
 
     @Test
     void bonusDeveSer10PorCentoParaSalarioDeExatamente10000() {
-        var service = new BonusService();
+
         var funcionario = new Funcionario("Anderson", LocalDate.now(), new BigDecimal("10000"));
         var bonus = service.calcularBonus(funcionario);
 
